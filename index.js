@@ -27,11 +27,10 @@ cloudinary.config({
 });
 
 // Import des routes
-const signup = require("./routes/user");
-app.use(signup);
-const login = require("./routes/user");
-app.use(login);
-const offer = require("./routes/offer");
+const user = require("./Routes/user");
+app.use(user);
+
+const offer = require("./Routes/offer");
 app.use(offer);
 
 app.all("*", (req, res) => {
