@@ -6,8 +6,8 @@ const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
 
 // Import du model
-const User = require("../models/User");
-const Offer = require("../models/Offer");
+const User = require("../Models/User");
+const Offer = require("../Models/Offer");
 
 // Créer la route POST signup
 

@@ -12,8 +12,8 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 const cloudinary = require("cloudinary").v2;
 
 // Import des Models
-const User = require("../models/User");
-const Offer = require("../models/Offer");
+const User = require("../Models/User");
+const Offer = require("../Models/Offer");
 
 // Créer la route POST Offer - Publish
 
