@@ -166,4 +166,91 @@ router.get("/offer/:id", async (req, res) => {
   }
 });
 
+// Modifier les détails d'une annonce en fonction de son id
+
+router.put("/offer/update/:id", isAuthenticated, async (req, res) => {
+  const offerToUpdate = await Offer.findById(req.params.id);
+  try {
+    if (req.fields.title) {
+      offerToUpdate.product_name = req.fields.title;
+    }
+    if (req.fields.description) {
+      offerToUpdate.product_description = req.fields.description;
+    }
+    if (req.fields.price) {
+      offerToUpdate.product_price = req.fields.price;
+    }
+
+    const details = offerToUpdate.product_details;
+    for (i = 0; i < details.length; i++) {
+      if (details[i].MARQUE) {
+        if (req.fields.brand) {
+          details[i].MARQUE = req.fields.brand;
+        }
+      }
+      if (details[i].TAILLE) {
+        if (req.fields.size) {
+          details[i].TAILLE = req.fields.size;
+        }
+      }
+      if (details[i].ETAT) {
+        if (req.fields.condition) {
+          details[i].ETAT = req.fields.condition;
+        }
+      }
+      if (details[i].COULEUR) {
+        if (req.fields.color) {
+          details[i].COULEUR = req.fields.color;
+        }
+      }
+      if (details[i].EMPLACEMENT) {
+        if (req.fields.city) {
+          details[i].EMPLACEMENT = req.fields.city;
+        }
+      }
+    }
+
+    // Notifie Mongoose que l'on a modifié le tableau product_details
+    offerToUpdate.markModified("product_details");
+
+    if (req.files.picture) {
+      const result = await cloudinary.uploader.upload(req.files.picture.path, {
+        public_id: `vinted/offers/${offerToUpdate._id}/preview`,
+      });
+      offerToUpdate.product_image = result;
+    }
+
+    await offerToUpdate.save();
+
+    res.status(200).json("Offer has been modified successfully!");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Suppression d'une annonce en fonction de son id
+
+router.delete("/offer/delete/:id", isAuthenticated, async (req, res) => {
+  console.log("delete", req.params.id);
+
+  try {
+    // Supprimer ce qui se trouve dans le dossier cloudinary
+    await cloudinary.api.delete_resources_by_prefix(
+      `vinted/offers/${req.params.id}`
+    );
+
+    // Une fois le dossier vide, je peux le supprimer
+
+    await cloudinary.api.delete_folder(`vinted/offers/${req.params.id}`);
+
+    const offerToDelete = await Offer.findById(req.params.id);
+    console.log(offerToDelete);
+    await offerToDelete.delete();
+
+    res.status(200).json("Offer has been deleted successfully");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 module.exports = router;

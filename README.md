@@ -34,15 +34,18 @@ size |
 color |
 user token |
 
-2 - **/offer (GET)** -> _to get all offers or offers filtered by priceMin, priceMax & sorted by_
+2 - **/offer (GET)** -> _to get all offers or offers filtered by priceMin, priceMax & sort by_
 
 3 - **/offer/:id (GET)** -> _to get a specific offer_
 
 Required -> offer id
 
+4 - **/offer/update/:id (PUT)** -> _to modify an offer_
+
+Required -> offer id
+
+5 - **/offer/delete/:id (DEL)** -> _to delete an offer_
+
+Required -> offer id
+
 ---
-
-## Todos
-
-- Add a route to update an offer
-- Add a route to delete an offer
