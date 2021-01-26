@@ -137,6 +137,7 @@ router.get("/offers", async (req, res) => {
       .select(
         "product_details product_image _id product_name product_description product_price owner"
       )
+      .populate({ path: "owner", select: "account" })
       .sort(sort)
       .skip((page - 1) * limit) // ignorera les x résultats
       .limit(limit); // renverra les y résultats
