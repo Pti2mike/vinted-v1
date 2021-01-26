@@ -33,6 +33,9 @@ app.use(user);
 const offer = require("./Routes/offer");
 app.use(offer);
 
+const payment = require("./Routes/payment");
+app.use(payment);
+
 app.all("*", (req, res) => {
   res.status(400).json({ message: "Cette route n'existe pas" });
 });
