@@ -49,3 +49,9 @@ Required -> offer id
 Required -> offer id
 
 ---
+
+### For Payment
+
+One route are available:
+
+**/payment (POST)** -> _to buy an item_
