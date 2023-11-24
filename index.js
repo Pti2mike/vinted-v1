@@ -7,13 +7,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(formidable());
-app.use(
-  cors({
-    origin: ["https://vinted-v1.vercel.app/", "http://localhost:300*/"],
-    methods: ["GET", "POST", "PUT"],
-    credentials: true,
-  })
-);
+app.use(cors());
 
 // Import de Cloudinary
 const cloudinary = require("cloudinary").v2;
