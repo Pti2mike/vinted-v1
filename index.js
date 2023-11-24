@@ -9,7 +9,7 @@ const app = express();
 app.use(formidable());
 app.use(
   cors({
-    origin: [],
+    origin: ["https://vinted-v1.vercel.app/"],
     methods: ["GET", "POST", "PUT"],
     credentials: true,
   })
