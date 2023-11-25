@@ -9,7 +9,11 @@ const app = express();
 app.use(formidable());
 app.use(
   cors({
-    origin: ["https://vinted-backend-v1.vercel.app/", "http://localhost:3000"],
+    origin: [
+      "https://vinted-backend-v1.vercel.app/",
+      "http://localhost:3000",
+      "https://elated-feynman-faea4f.netlify.app",
+    ],
     methods: ["GET", "POST", "PUT"],
     credentials: true,
   })
